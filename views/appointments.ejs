@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .card-shadow:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .table-row:hover {
+            background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%);
+            transition: background 0.2s ease;
+        }
+        
+        .patient-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .doctor-badge {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 via-purple-50 to-slate-100">
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <%- include("partials/sidebar") %>
+
+        <!-- Main Section -->
+        <div class="flex-1 flex flex-col">
+            <!-- Navbar -->
+            <%- include("partials/navbar") %>
+
+            <main class="p-6 md:p-8 animate-fadeIn">
+                
+                <!-- Header Section -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800 mb-1">Appointments</h1>
+                        <p class="text-gray-500 text-sm">Manage patient appointments and schedules</p>
+                    </div>
+
+                    <a href="/appointments/add"
+                        class="gradient-bg text-white px-6 py-3 rounded-xl hover:opacity-90 transition-all duration-300 flex items-center gap-2 w-fit shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        <i data-feather="plus" class="w-5 h-5"></i>
+                        <span class="font-semibold">Add Appointment</span>
+                    </a>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white rounded-xl p-5 card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium mb-1">Total</p>
+                                <p class="text-2xl font-bold text-gray-800"><%= appointments.length %></p>
+                            </div>
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
+                                <i data-feather="calendar" class="w-6 h-6 text-blue-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium mb-1">Today</p>
+                                <p class="text-2xl font-bold text-gray-800">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
+                                <i data-feather="check-circle" class="w-6 h-6 text-green-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium mb-1">Upcoming</p>
+                                <p class="text-2xl font-bold text-gray-800">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center">
+                                <i data-feather="clock" class="w-6 h-6 text-orange-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium mb-1">Completed</p>
+                                <p class="text-2xl font-bold text-gray-800">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
+                                <i data-feather="check-square" class="w-6 h-6 text-purple-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appointments Table Card -->
+                <div class="bg-white rounded-2xl card-shadow overflow-hidden">
+                    
+                    <!-- Table Header -->
+                    <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-700 flex items-center gap-2">
+                            <i data-feather="list" class="w-5 h-5"></i>
+                            All Appointments
+                        </h2>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gradient-to-r from-slate-50 to-purple-50 border-b-2 border-purple-100">
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                                        <div class="flex items-center gap-2">
+                                            <i data-feather="user" class="w-4 h-4"></i>
+                                            Patient Name
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                                        <div class="flex items-center gap-2">
+                                            <i data-feather="user-check" class="w-4 h-4"></i>
+                                            Doctor
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                                        <div class="flex items-center gap-2">
+                                            <i data-feather="calendar" class="w-4 h-4"></i>
+                                            Date
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                                        <div class="flex items-center gap-2">
+                                            <i data-feather="clock" class="w-4 h-4"></i>
+                                            Time
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                                        <div class="flex items-center gap-2">
+                                            <i data-feather="file-text" class="w-4 h-4"></i>
+                                            Reason
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="divide-y divide-gray-100">
+                                <% if (appointments.length === 0) { %>
+                                    <tr>
+                                        <td colspan="5" class="text-center py-12">
+                                            <div class="flex flex-col items-center gap-3">
+                                                <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                                                    <i data-feather="calendar" class="w-10 h-10 text-gray-400"></i>
+                                                </div>
+                                                <p class="text-gray-500 font-medium">No appointments found</p>
+                                                <p class="text-gray-400 text-sm">Schedule your first appointment to get started</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% } %>
+
+                                <% appointments.forEach(appt => { %>
+                                    <tr class="table-row">
+                                        <!-- Patient Name -->
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-full patient-avatar flex items-center justify-center text-white font-bold text-sm shadow-md">
+                                                    <%= appt.patientName.charAt(0).toUpperCase() %>
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold text-gray-800"><%= appt.patientName %></p>
+                                                    <p class="text-xs text-gray-500">Patient</p>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Doctor -->
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-8 h-8 doctor-badge rounded-lg flex items-center justify-center">
+                                                    <i data-feather="activity" class="w-4 h-4 text-white"></i>
+                                                </div>
+                                                <span class="text-gray-700 font-medium"><%= appt.doctorName %></span>
+                                            </div>
+                                        </td>
+
+                                        <!-- Date -->
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg font-medium text-sm">
+                                                    <%= appt.appointmentDate %>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Time -->
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="bg-purple-50 text-purple-600 px-3 py-1.5 rounded-lg font-medium text-sm">
+                                                    <i data-feather="clock" class="w-3.5 h-3.5 inline mr-1"></i>
+                                                    <%= appt.appointmentTime %>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Reason -->
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-start gap-2">
+                                                <div class="bg-gray-100 px-3 py-1.5 rounded-lg max-w-xs">
+                                                    <p class="text-gray-700 text-sm"><%= appt.reason %></p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Table Footer -->
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm text-gray-600">
+                                Showing <span class="font-semibold text-gray-800"><%= appointments.length %></span> appointments
+                            </p>
+                            <div class="flex items-center gap-2">
+                                <button class="px-3 py-1 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition-colors text-sm font-medium">
+                                    Previous
+                                </button>
+                                <button class="px-3 py-1 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors text-sm font-medium">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+        
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("-translate-x-full");
+        }
+    </script>
+
+</body>
+</html>

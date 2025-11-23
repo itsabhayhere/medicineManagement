@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Medicine - MediCare Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .sidebar-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .gradient-bg-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 text-slate-800 h-screen flex overflow-hidden">
+
+    <!-- Sidebar Backdrop -->
+    <div id="sidebarBackdrop" onclick="toggleSidebar()" 
+         class="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 hidden transition-opacity opacity-0 md:hidden"></div>
+
+    <!-- Sidebar -->
+    <%- include("partials/sidebar") %>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
+
+        <!-- Navbar -->
+        <%- include("partials/navbar") %>
+
+        <!-- Page Content -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth">
+
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 animate-fadeInUp">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 mb-1">Add New Medicine</h1>
+                    <p class="text-slate-500">Fill in the details to add a new medicine to the inventory</p>
+                </div>
+                
+                <a href="/medicines"
+                    class="flex items-center gap-2 px-5 py-2.5 bg-white border-2 border-slate-200 text-slate-700 rounded-xl text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm w-fit">
+                    <i data-feather="arrow-left" class="w-4 h-4"></i>
+                    Back to Medicines
+                </a>
+            </div>
+
+            <!-- Form Card -->
+            <div class="bg-white shadow-lg rounded-2xl p-6 md:p-8 max-w-5xl border border-slate-100 animate-fadeInUp" style="animation-delay: 0.1s;">
+
+                <div class="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100">
+                    <div class="w-12 h-12 gradient-bg-1 rounded-xl flex items-center justify-center shadow-lg">
+                        <i data-feather="file-plus" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Medicine Information</h2>
+                        <p class="text-sm text-slate-500">Enter all required medicine details</p>
+                    </div>
+                </div>
+
+                <form action="/medicines/add" method="POST" class="space-y-6">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <!-- Medicine Name -->
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2 flex items-center gap-2">
+                                <i data-feather="package" class="w-4 h-4 text-purple-600"></i>
+                                Medicine Name
+                            </label>
+                            <input type="text" name="medicineName" required placeholder="e.g., Paracetamol"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                        </div>
+
+                        <!-- Company Name -->
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2 flex items-center gap-2">
+                                <i data-feather="briefcase" class="w-4 h-4 text-blue-600"></i>
+                                Company Name
+                            </label>
+                            <input type="text" name="companyName" required placeholder="e.g., PharmaCorp Ltd."
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                        </div>
+
+                        <!-- Expiry Date -->
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2 flex items-center gap-2">
+                                <i data-feather="calendar" class="w-4 h-4 text-rose-600"></i>
+                                Expiry Date
+                            </label>
+                            <input type="date" name="expiryDate" required
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                        </div>
+
+                        <!-- Quantity -->
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2 flex items-center gap-2">
+                                <i data-feather="hash" class="w-4 h-4 text-emerald-600"></i>
+                                Quantity
+                            </label>
+                            <input type="number" name="quantity" min="1" required placeholder="e.g., 100"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                        </div>
+
+                        <!-- Price -->
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2 flex items-center gap-2">
+                                <i data-feather="dollar-sign" class="w-4 h-4 text-green-600"></i>
+                                Price (₹)
+                            </label>
+                            <input type="number" name="price" step="0.01" min="0" required placeholder="e.g., 250.00"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                        </div>
+
+                        <!-- Reminder Time -->
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2 flex items-center gap-2">
+                                <i data-feather="clock" class="w-4 h-4 text-blue-600"></i>
+                                Reminder Time
+                            </label>
+                            <input type="time" name="reminderTime" required
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                        </div>
+
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                        <button type="submit"
+                            class="flex-1 gradient-bg-1 text-white py-3.5 rounded-xl hover:opacity-90 transition-all font-semibold text-base flex items-center justify-center gap-2 shadow-lg">
+                            <i data-feather="save" class="w-5 h-5"></i>
+                            Save Medicine
+                        </button>
+                        
+                        <button type="reset"
+                            class="sm:w-auto px-6 bg-white border-2 border-slate-200 text-slate-700 py-3.5 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all font-semibold text-base flex items-center justify-center gap-2">
+                            <i data-feather="refresh-cw" class="w-5 h-5"></i>
+                            Reset Form
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Quick Tips -->
+            <div class="mt-6 bg-blue-50 border border-blue-100 rounded-2xl p-6 max-w-5xl animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i data-feather="info" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 mb-2">Quick Tips</h3>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            <li>• Ensure the expiry date is accurate to avoid inventory issues</li>
+                            <li>• Set reminder times for medicines that need regular restocking</li>
+                            <li>• Double-check company names for proper record keeping</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        feather.replace();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const backdrop = document.getElementById("sidebarBackdrop");
+            
+            const isClosed = sidebar.classList.contains("-translate-x-full");
+            
+            if (isClosed) {
+                sidebar.classList.remove("-translate-x-full");
+                backdrop.classList.remove("hidden");
+                setTimeout(() => {
+                    backdrop.classList.remove("opacity-0");
+                }, 10);
+            } else {
+                sidebar.classList.add("-translate-x-full");
+                backdrop.classList.add("opacity-0");
+                setTimeout(() => {
+                    backdrop.classList.add("hidden");
+                }, 300);
+            }
+        }
+    </script>
+
+</body>
+</html

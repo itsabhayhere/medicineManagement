@@ -1,0 +1,93 @@
+<!-- Sidebar -->
+<aside id="sidebar"
+    class="fixed md:relative z-30 w-64 h-screen bg-white/80 backdrop-blur-xl border-r border-slate-200/50 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out transform md:translate-x-0 -translate-x-full">
+
+    <!-- Logo / Brand -->
+    <div class="h-16 flex items-center px-6 border-b border-slate-200/50 shrink-0">
+        <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shadow-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <i data-feather="activity" class="w-5 h-5 text-white"></i>
+            </div>
+            <span class="text-xl font-bold">
+                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">MediCare</span>
+                <span class="text-slate-700">Admin</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 px-4 py-6 overflow-y-auto">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pl-2">Main Menu</p>
+        <ul class="space-y-1.5">
+            
+            <!-- Dashboard -->
+            <li>
+                <a href="/" class="flex items-center gap-3 px-4 py-3 text-white rounded-xl transition-all shadow-md" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);">
+                    <i data-feather="grid" class="w-5 h-5"></i>
+                    <span class="font-semibold">Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Medicines -->
+            <li>
+                <a href="/medicines" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-slate-900 rounded-xl transition-all group">
+                    <div class="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                        <i data-feather="package" class="w-4 h-4 text-blue-600"></i>
+                    </div>
+                    <span class="font-medium">Medicines</span>
+                </a>
+            </li>
+
+            <!-- Appointments -->
+            <li>
+                <a href="/appointments" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-slate-900 rounded-xl transition-all group">
+                    <div class="w-9 h-9 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                        <i data-feather="calendar" class="w-4 h-4 text-purple-600"></i>
+                    </div>
+                    <span class="font-medium">Appointments</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Quick Actions -->
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mt-8 mb-3 pl-2">Quick Actions</p>
+        <ul class="space-y-1.5">
+            <!-- Add Medicine -->
+            <li>
+                <a href="/medicines/add" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:text-slate-900 rounded-xl transition-all group">
+                    <div class="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                        <i data-feather="plus-circle" class="w-4 h-4 text-green-600"></i>
+                    </div>
+                    <span class="font-medium">Add Medicine</span>
+                </a>
+            </li>
+
+            <!-- Book Appointment -->
+            <li>
+                <a href="/appointments/add" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:text-slate-900 rounded-xl transition-all group">
+                    <div class="w-9 h-9 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+                        <i data-feather="clipboard" class="w-4 h-4 text-emerald-600"></i>
+                    </div>
+                    <span class="font-medium">Book Appointment</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Footer -->
+    <div class="p-4 border-t border-slate-200/50 shrink-0">
+        <div class="flex items-center gap-3 bg-gradient-to-r from-slate-50 to-blue-50 p-3 rounded-xl">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold shadow-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                A
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-slate-900 truncate">System Admin</p>
+                <p class="text-xs text-slate-500 truncate">admin@medicare.com</p>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<script>
+    feather.replace();
+</script>
